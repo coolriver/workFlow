@@ -113,6 +113,10 @@ module.exports = function(grunt){
         
     });
  
+	grunt.registerTask('test','just for test.',function (){
+		grunt.log.writeln("hahaha");
+	});
+
     grunt.registerTask('serve', [
         'connect:server',
         'watch'
@@ -121,12 +125,15 @@ module.exports = function(grunt){
     grunt.registerTask('compile', [
         'bower_concat',
         'concat',
-        'uglify'
+        'uglify',
+        'handlebarslayouts'
     ]);
 
     grunt.registerTask('default', [
+        'bower_concat',
         'concat',
         'uglify',
+        'handlebarslayouts',//这个任务会使后面watch任务停止，所以直接grunt命令的话有问题。需要先执行 grunt compile再执行grunt serve
         'connect:server',
         'watch'
     ]);
