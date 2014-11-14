@@ -133,9 +133,9 @@ module.exports = function(grunt){
         'bower_concat',
         'concat',
         'uglify',
-        'handlebarslayouts',//这个任务会使后面watch任务停止，所以直接grunt命令的话有问题。需要先执行 grunt compile再执行grunt serve
-        'connect:server',
-        'watch'
+        'handlebarslayouts'//这个任务会使后面watch任务停止，所以直接grunt命令的话有问题。需要先执行 grunt compile再执行grunt serve
+     //   'connect:server',
+     //   'watch'
     ]);
 
 }
