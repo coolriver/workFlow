@@ -11,14 +11,17 @@ var marked = require('marked');
 module.exports.register = function (Handlebars, options) {
   options = options || {};
   options.marked = options.marked || {
-/*    renderer: new marked.Renderer(),
+    renderer: new marked.Renderer(),
     gfm: true,
     tables: true,
     breaks: false,
     pedantic: false,
     sanitize: true,
     smartLists: true,
-    smartypants: false*/
+    smartypants: false,
+    highlight: function (code) {
+      return require('highlight.js').highlightAuto(code).value;
+    }
   };
 
   Handlebars.registerHelper('md', function(name, context){

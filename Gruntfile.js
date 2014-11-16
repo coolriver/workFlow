@@ -4,15 +4,22 @@ module.exports = function(grunt){
  
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        hilight_style: {
+            css: 'node_modules/highlight.js/styles/hybrid.css'
+        },
         bower_concat: {
           all: {
             dest: 'lib/script/component.js',
             cssDest: 'lib/style/component.css',
             exclude: [
              // 'jquery'
+             //'highlight'
             ],
             dependencies: {
                 'cool-dialog': 'jquery'
+            },
+            mainFiles: {
+               // 'highlight': ['src/highlight.pack.js','src/styles/github.css']
             }
           }
         },
@@ -51,17 +58,17 @@ module.exports = function(grunt){
         },
 
         concat: {
-            options:{
-                separator: ';'
-            },
 
             script: {
+                options:{
+                    separator: ';'
+                },
                 src: ['<%=bower_concat.all.dest%>','script/*.js'],
                 dest: 'blog/js/main.js'
             },
 
             style: {
-                src: ['<%=bower_concat.all.cssDest%>','style/*.css'],
+                src: ['<%=bower_concat.all.cssDest%>','<%=hilight_style.css%>','style/*.css'],
                 dest: 'blog/css/style.css'
             }
         },
