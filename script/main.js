@@ -5,4 +5,5 @@ $(document).ready(function() {
   $('pre code').each(function() {
     $(this).addClass("hljs");
   });
+
 });

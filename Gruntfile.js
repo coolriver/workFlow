@@ -1,6 +1,10 @@
 module.exports = function(grunt){
  
     require('load-grunt-tasks')(grunt); //加载所有的任务
+
+    var handlebarsConf = require('./src/helpers/handlebars-conf.js');
+
+    console.log(JSON.stringify(handlebarsConf));
  
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -88,35 +92,7 @@ module.exports = function(grunt){
             src: ['script/*.js']
         },
 
-        handlebarslayouts: {
-          home: {
-            files: {
-              'blog/*.html': 'src/page/*.hbs'
-            },
-            options: {
-              partials: [
-                'src/template/*.hbs', 
-                'src/md/*.md',
-                'src/layout/*.html'
-              ],
-              modules: [
-                'src/helpers/helpers-*.js',
-                'handlebars-helper-moment',
-                //'handlebars-helper-feed'
-                //'handlebars-helper-md'
-              ],
-              basePath: 'src/',
-              context: {
-                title: 'Layout Test',
-                items: [
-                  'apple',
-                  'orange',
-                  'banana'
-                ]
-              }
-            }
-          }
-        }
+        handlebarslayouts: handlebarsConf
         
     });
  
