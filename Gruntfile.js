@@ -67,12 +67,12 @@ module.exports = function(grunt){
                 options:{
                     separator: ';'
                 },
-                src: ['<%=bower_concat.all.dest%>','script/*.js'],
+                src: ['<%=bower_concat.all.dest%>','src/script/*.js'],
                 dest: 'blog/js/main.js'
             },
 
             style: {
-                src: ['<%=bower_concat.all.cssDest%>','<%=hilight_style.css%>','style/*.css'],
+                src: ['<%=bower_concat.all.cssDest%>','<%=hilight_style.css%>','src/style/*.css'],
                 dest: 'blog/css/style.css'
             }
         },
@@ -89,7 +89,7 @@ module.exports = function(grunt){
         },
 
         jshint: {
-            src: ['script/*.js']
+            src: ['src/script/*.js']
         },
 
         handlebarslayouts: handlebarsConf
