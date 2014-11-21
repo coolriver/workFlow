@@ -47,6 +47,9 @@ module.exports = function(grunt){
         },
  
         watch: {
+            options: {
+                debounceDelay:250
+            },
             livereload: {
                 options: {
                     livereload: '<%=connect.options.livereload%>'  //监听前面声明的端口  35729
@@ -58,6 +61,18 @@ module.exports = function(grunt){
                     'blog/js/*.js',
                     'blog/img/*.{png,jpg}'
                 ]
+            },
+            livebower: {
+                files: ['bower_components/**'],
+                tasks: ['bower_concat']
+            },
+            livestatic: {
+                files: ['lib/**','src/script/**','src/style/**'],
+                tasks: ['concat','uglify']
+            },
+            livepage: {
+                files: ['src/data/**','src/layout/**','src/md/**','src/page/**','src/template/**'],
+                tasks: ['handlebarslayouts']
             }
         },
 
