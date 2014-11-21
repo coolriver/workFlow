@@ -98,7 +98,14 @@ module.exports = function(grunt){
  
 	grunt.registerTask('test','just for test.',function (){
 		grunt.log.writeln("hahaha");
+        var obj = {a:1,b:2};
+     //   grunt.file.write('src/data/test.json',JSON.stringify(obj));
+     //   grunt.log.writeln(JSON.stringify(grunt.file.readJSON('src/data/test.json')));
 	});
+
+    grunt.registerTask('metadata','update meta data of markdown articles.',function(){
+
+    })
 
     grunt.registerTask('serve', [
         'connect:server',
