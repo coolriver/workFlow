@@ -8,34 +8,6 @@
 
 'use strict';
 
-
-
-
-var handlebars_config = {
-	home: {
-        files: {
-          'blog/index.html': 'src/page/index.hbs'
-        },
-        options: {
-          partials: [
-            'src/template/*.hbs', 
-            'src/md/*.md',
-            'src/layout/index.html'
-          ],
-          modules: [
-            'src/helpers/helpers-*.js',
-            'handlebars-helper-moment'
-          ],
-          basePath: 'src/',
-          context: 'src/data/index.json'
-        }
-    }
-};
-var fs = require('fs');
-var arr = fs.readdirSync('src/md');
-
-//arr.forEach(function(v){console.log(v)});
-
 //函数：更新md文件对应的元数据json文件
 function updateJson(name,md,json,time,grunt){
   var fs = require('fs'),
@@ -90,12 +62,15 @@ module.exports = function(grunt) {
         arr = fs.readdirSync('src/md'),
         renderList = {},
         titleList = [],
+        nameList = [],
         jsonPre = 'src/data/article/',
         mdPre = 'src/md/',
+        htmlPre = 'blog/',
         fileName,
         filePath,
         fileJson,
         fileInfo,
+        htmlPath,
         mdPath,
         update = false;
 
@@ -130,12 +105,14 @@ module.exports = function(grunt) {
       fileName = v.split('.')[0];
       filePath = jsonPre + fileName + '.json';
       mdPath = mdPre + fileName + '.md';
+      htmlPath = htmlPre + 'article/' + fileName + '.html';
       fileJson = grunt.file.readJSON(filePath);
       titleList.push(fileJson.title);
-      if (renderList[fileName]){
+      nameList.push(fileName);
+      if (renderList[fileName] || (!fs.existsSync(htmlPath))){
         update = true;
         var ht = {};
-        ht['blog/article/'+ fileName +'.html'] = 'src/page/article.hbs';
+        ht[htmlPath] = 'src/page/article.hbs';
         handleConf[fileName] = {
           files: ht,
           options: {
@@ -159,6 +136,7 @@ module.exports = function(grunt) {
     if (update){ 
       var indexJson = grunt.file.readJSON('src/data/index.json');
       indexJson.articleList = titleList;
+      indexJson.nameList = nameList;
       grunt.file.write('src/data/index.json',JSON.stringify(indexJson));
       grunt.log.write('update article list :\n');
       grunt.log.ok(titleList.join('\n'))
