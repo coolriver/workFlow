@@ -1,10 +1,11 @@
 module.exports = function(grunt){
  
     require('load-grunt-tasks')(grunt); //加载所有的任务
+    require('./src/helpers/handlebarslist.js')(grunt); //加载自定义的刷新文章列表任务
 
-    var handlebarsConf = require('./src/helpers/handlebars-conf.js');
+    var handlebarsConf = {}//require('./src/helpers/handlebars-conf.js');
 
-    console.log(JSON.stringify(handlebarsConf));
+    //console.log(JSON.stringify(handlebarsConf));
  
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -71,8 +72,8 @@ module.exports = function(grunt){
                 tasks: ['concat','uglify']
             },
             livepage: {
-                files: ['src/data/**','src/layout/**','src/md/**','src/page/**','src/template/**'],
-                tasks: ['handlebarslayouts']
+                files: ['src/layout/**','src/md/**','src/page/**','src/template/**'],
+                tasks: ['handlebarslist','handlebarslayouts']
             }
         },
 

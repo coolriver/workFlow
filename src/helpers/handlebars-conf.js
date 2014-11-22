@@ -1,3 +1,13 @@
+/*
+ * grunt-bandlebars-conf
+ * 
+ *
+ * Copyright (c) 2014 coolriver
+ * 
+ */
+
+'use strict';
+
 
 
 var handlebars_config = {
