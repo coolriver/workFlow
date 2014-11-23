@@ -61,8 +61,7 @@ module.exports = function(grunt) {
         fs = require('fs'),
         arr = fs.readdirSync('src/md'),
         renderList = {},
-        titleList = [],
-        nameList = [],
+        articles = [],
         jsonPre = 'src/data/article/',
         mdPre = 'src/md/',
         htmlPre = 'blog/',
@@ -82,6 +81,7 @@ module.exports = function(grunt) {
 
       //新增md文件
       if (!fs.existsSync(filePath)){
+        update = true;
         renderList[fileName] = true;
         fileInfo = fs.statSync(mdPath);
         updateJson(fileName,mdPath,filePath,fileInfo.mtime.valueOf(),grunt);
@@ -93,6 +93,7 @@ module.exports = function(grunt) {
         //修改现有md文件
         if (fileInfo.mtime.valueOf() > fileInfo.ctime.valueOf() &&
             fileInfo.mtime.valueOf() > fileJson.modifyTimeValue){
+          update = true;
           renderList[fileName] = true;
           updateJson(fileName,mdPath,filePath,fileInfo.mtime.valueOf(),grunt);
         }
@@ -107,10 +108,19 @@ module.exports = function(grunt) {
       mdPath = mdPre + fileName + '.md';
       htmlPath = htmlPre + 'article/' + fileName + '.html';
       fileJson = grunt.file.readJSON(filePath);
-      titleList.push(fileJson.title);
-      nameList.push(fileName);
-      if (renderList[fileName] || (!fs.existsSync(htmlPath))){
-        update = true;
+      articles.push({
+          title: fileJson.title,
+          name: fileName,
+          mtime: fileJson.modifyTime
+        });
+
+      /*
+          需要重新生成静态页面的三种情况：
+            1. md文件被修改
+            2. md文件对应的html页面没生成（刚从git 上clone下来）
+            3. 模板或layout文件被修改
+      */
+      if (renderList[fileName] || (!fs.existsSync(htmlPath)) || (!update)){
         var ht = {};
         ht[htmlPath] = 'src/page/article.hbs';
         handleConf[fileName] = {
@@ -135,11 +145,10 @@ module.exports = function(grunt) {
     //更新index.json 文章名列表
     if (update){ 
       var indexJson = grunt.file.readJSON('src/data/index.json');
-      indexJson.articleList = titleList;
-      indexJson.nameList = nameList;
+      indexJson.articles = articles;
       grunt.file.write('src/data/index.json',JSON.stringify(indexJson));
       grunt.log.write('update article list :\n');
-      grunt.log.ok(titleList.join('\n'))
+      grunt.log.ok(articles.map(function(v){return v.title;}).join('\n'))
     }
     grunt.config('handlebarslayouts',handleConf);
   })

@@ -60,7 +60,7 @@ module.exports = function(grunt){
                     'blog/*.html',
                     'blog/css/*.css',
                     'blog/js/*.js',
-                    'blog/img/*.{png,jpg}'
+                    'blog/img/*.{png,jpg,gif}'
                 ]
             },
             livebower: {
@@ -74,6 +74,10 @@ module.exports = function(grunt){
             livepage: {
                 files: ['src/layout/**','src/md/**','src/page/**','src/template/**'],
                 tasks: ['handlebarslist','handlebarslayouts']
+            },
+            liveimg: {
+                files: ['src/img/**','src/data/**'],
+                tasks: ['copy']
             }
         },
 
@@ -108,7 +112,22 @@ module.exports = function(grunt){
             src: ['src/script/*.js']
         },
 
-        handlebarslayouts: handlebarsConf
+        handlebarslayouts: handlebarsConf,
+
+        copy: {
+          img: {
+            expand: true,
+            cwd: 'src/img/',
+            src: ['**'],
+            dest: 'blog/img/'
+          },
+          data: {
+            expand: true,
+            cwd: 'src/data/',
+            src: ['**'],
+            dest: 'blog/data/'
+          }
+        },
         
     });
  
@@ -133,7 +152,8 @@ module.exports = function(grunt){
         'concat',
         'uglify',
         'handlebarslist',
-        'handlebarslayouts'
+        'handlebarslayouts',
+        'copy'
     ]);
 
     grunt.registerTask('default', [

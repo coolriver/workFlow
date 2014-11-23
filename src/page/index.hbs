@@ -1,8 +1,6 @@
 {{#extend "index"}}
 
     {{#replace "body"}}
-      <h2>Welcome Home</h2>
-
       <ul>
         {{#items}}
           <li>{{.}}</li>
@@ -10,8 +8,6 @@
       </ul>
 
       {{md article }}
-
-      {{moment format="HH:mm:ss"}}
 
     {{/replace}}
 
