@@ -19,6 +19,7 @@ module.exports = function(grunt){
             exclude: [
              // 'jquery'
              //'highlight'
+             //'mou-theme-github2'
             ],
             dependencies: {
                 'cool-dialog': 'jquery'
@@ -92,7 +93,7 @@ module.exports = function(grunt){
             },
 
             style: {
-                src: ['<%=bower_concat.all.cssDest%>','<%=hilight_style.css%>','src/style/*.css'],
+                src: ['lib/style/*.css','<%=hilight_style.css%>','src/style/*.css'],
                 dest: 'blog/css/style.css'
             }
         },

@@ -12,6 +12,7 @@ header{
 }
 
 body{
+	padding: 0;
 	background: url(/img/background.jpg) repeat;
 	min-width: 1000px;
 }
