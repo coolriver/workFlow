@@ -42,7 +42,7 @@ module.exports = function(grunt){
                 options: {
                     open: true, //自动打开网页 http://
                     base: [
-                        'blog'  //主目录
+                        './'  //主目录
                     ]
                 }
             }
