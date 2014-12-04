@@ -9,6 +9,8 @@
 header{
 	height: 150px;
 	background: #abc;
+	overflow: hidden;
+	text-align: center;
 }
 
 body{

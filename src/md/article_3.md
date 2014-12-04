@@ -28,14 +28,14 @@
 ####2.应用分类:
 | 领域        |    相关文献 |
 | :--------: | :--------: |
-| World Wide Web    | [Dorogovtsev and Mendes 2003] [Papadimitriou et al. 2010] [Chan et al. 2008] [Chi et al. 1998]    |
+| World Wide Web    | **[Evolution of Networks: From Biological Nets to the Internet and WWW.** 2003] [**Web graph similarity for anomaly detection.** 2010] [**Discovering correlated spatio-temporal changes in evolving graphs.** 2008] [Visualizing the evolution of web ecologies. 1998]    |
 | Telecommunication Networks | [Liu et al. 2011] [De Melo et al. 2010] [Akoglu and Faloutsos 2010] [Akoglu and Dalvi 2010] |
 | Communication Networks | [Chan et al. 2008] [Huang and Lin 2009] |
 | Road Networks | [Mongiovi et al. 2013] [Bogdanov et al. 2011] |
 | Recommendations | [Huang et al. 2005] [Aggarwal et al. 2012b] [Leskovec et al. 2007] [Aggarwal et al. 2012a] [Richardson and Domingos 2002] [Sarkar et al. 2012] [Tylenda et al. 2009] [Huang and Lin 2009] |
-| **Social Network Events** | [Event detection in social streams. 2012 ] [Event detection and tracking in social streams. 2009] [Earthquake shakes Twitter users: Real-time event detection by social sensors. 2010] [Temporal and information flow based event detection from social text streams. 2007] [Detection of anomalous meetings in a social network. 2008] [Fast mining of complex time-stamped events. 2008c] [A statistical model for popular events tracking in social communities. 2010] [CopyCatch: Stopping group attacks by spotting lockstep behavior in social networks. 2013] |
+| **Social Network Events** | [**Event detection in social streams. 2012** ] [**Event detection and tracking in social streams.** 2009] [Earthquake shakes Twitter users: Real-time event detection by social sensors. 2010] [Temporal and information flow based event detection from social text streams. 2007] [Detection of anomalous meetings in a social network. 2008] [Fast mining of complex time-stamped events. 2008c] [**A statistical model for popular events tracking in social communities.** 2010] [CopyCatch: Stopping group attacks by spotting lockstep behavior in social networks. 2013] |
 | Blog Evolution | [Ning et al. 2007] [McGlohon et al. 2007] [Goetz et al. 2009] [Leskovec et al. 2007] |
-| Computer Systems | [Id´ e and Kashima 2004] [Albert et al. 2000] |
+| **Computer Systems** | [**Eigenspace-based anomaly detection in computer systems.** 2004] [Topology of evolving networks: Local events and universality. 2000] |
 | News Networks | [Yan et al. 2012] [Leskovec et al. 2009] |
 | Bibliographic Networks | [Gupta et al. 2011b] [Chen 2006] [Sun et al. 2011] [Barabˆ asi et al. 2002]|
 | Biological Networks | [V´ azquez et al. 2002] [Sol´ e et al. 2002] [Asur et al. 2007] [Dorogovtsev and Mendes 2003] [Teichmann and Babu 2004] [Stuart et al. 2003] [Beyer et al. 2010] |
