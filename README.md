@@ -5,7 +5,7 @@ workFlow
 
 安装：
 >npm install bower -g
-npm install
+npm install  
 bower install
 
 编译：
