@@ -38,5 +38,5 @@
 | Blog Evolution | [Ning et al. 2007] [McGlohon et al. 2007] [Goetz et al. 2009] [Leskovec et al. 2007] |
 | **Computer Systems** | [**Eigenspace-based anomaly detection in computer systems.** 2004] [Topology of evolving networks: Local events and universality. 2000] |
 | News Networks | [Yan et al. 2012] [Leskovec et al. 2009] |
-| Bibliographic Networks | [Gupta et al. 2011b] [Chen 2006] [Sun et al. 2011] [Barabˆ asi et al. 2002]|
+| **Bibliographic Networks** | [**Evolutionary clustering and analysis of bibliographic networks.** 2011b] [Detecting and visualizing emerging trends and transient patterns in scientific literature. 2006] [Sun et al. 2011] [Barabˆ asi et al. 2002]|
 | Biological Networks | [V´ azquez et al. 2002] [Sol´ e et al. 2002] [Asur et al. 2007] [Dorogovtsev and Mendes 2003] [Teichmann and Babu 2004] [Stuart et al. 2003] [Beyer et al. 2010] |
