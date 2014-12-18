@@ -4,7 +4,7 @@ workFlow
 我的blog的自动化工作流程
 
 安装：
->npm install bower -g
+>npm install  bower -g  
 npm install  
 bower install
 
