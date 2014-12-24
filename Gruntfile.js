@@ -9,17 +9,16 @@ module.exports = function(grunt){
  
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
         hilight_style: {
             css: 'node_modules/highlight.js/styles/hybrid.css'
         },
+
         bower_concat: {
           all: {
             dest: 'lib/script/component.js',
             cssDest: 'lib/style/component.css',
             exclude: [
-             // 'jquery'
-             //'highlight'
-             //'mou-theme-github2'
             ],
             dependencies: {
                 'cool-dialog': 'jquery'
@@ -29,7 +28,6 @@ module.exports = function(grunt){
             }
           }
         },
-
 
         connect: {
             options: {
@@ -47,7 +45,7 @@ module.exports = function(grunt){
                 }
             }
         },
- 
+
         watch: {
             options: {
                 debounceDelay:250
@@ -68,8 +66,12 @@ module.exports = function(grunt){
                 files: ['bower_components/**'],
                 tasks: ['bower_concat']
             },
+            livesaass: {
+                files: ['src/style/scss/*.scss'],
+                tasks: ['sass']
+            },
             livestatic: {
-                files: ['lib/**','src/script/**','src/style/**'],
+                files: ['lib/**','src/script/**','src/style/*.css'],
                 tasks: ['concat','uglify']
             },
             livepage: {
@@ -79,6 +81,21 @@ module.exports = function(grunt){
             liveimg: {
                 files: ['src/img/**','src/data/**'],
                 tasks: ['copy']
+            }
+        },
+
+        sass:{
+            options:{
+                style: 'nested',
+                sourcemap: 'none'
+            },
+            main:{
+                expand: true,
+                cwd:'src/style/scss/',
+                src:['*.scss'],
+                dest:'src/style/',
+                ext:'.css'
+
             }
         },
 
@@ -139,9 +156,7 @@ module.exports = function(grunt){
      //   grunt.log.writeln(JSON.stringify(grunt.file.readJSON('src/data/test.json')));
 	});
 
-    grunt.registerTask('metadata','update meta data of markdown articles.',function(){
 
-    })
 
     grunt.registerTask('serve', [
         'connect:server',
@@ -150,6 +165,7 @@ module.exports = function(grunt){
 
     grunt.registerTask('compile', [
         'bower_concat',
+        'sass',
         'concat',
         'uglify',
         'handlebarslist',
@@ -157,13 +173,10 @@ module.exports = function(grunt){
         'copy'
     ]);
 
-    grunt.registerTask('default', [
-        'bower_concat',
-        'concat',
-        'uglify',
-        'handlebarslayouts'//这个任务会使后面watch任务停止，所以直接grunt命令的话有问题。需要先执行 grunt compile再执行grunt serve
-     //   'connect:server',
-     //   'watch'
-    ]);
+    grunt.registerTask('default', function(){
+        grunt.log.writeln("task:");
+        grunt.log.ok("grunt compile : compile the blog");
+        grunt.log.ok("grunt serve   : start a local static web server and watch daemon for developing");
+    });
 
 }
