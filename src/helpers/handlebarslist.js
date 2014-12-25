@@ -63,6 +63,7 @@ module.exports = function(grunt) {
         renderList = {},
         articles = [],
         jsonPre = 'src/data/article/',
+        blogJsonPre = 'blog/data/article/',
         mdPre = 'src/md/',
         htmlPre = 'blog/',
         fileName,
@@ -107,45 +108,57 @@ module.exports = function(grunt) {
       filePath = jsonPre + fileName + '.json';
       mdPath = mdPre + fileName + '.md';
       htmlPath = htmlPre + 'article/' + fileName + '.html';
-      fileJson = grunt.file.readJSON(filePath);
-      articles.push({
-          title: fileJson.title,
-          name: fileName,
-          mtime: fileJson.modifyTime
+      
+
+      //如果md文件被删除
+      if (!fs.existsSync(mdPath)){
+        grunt.file.delete(filePath);  //删除对应的src中的json元数据
+        grunt.file.delete(htmlPath);  //删除对应的blog中的页面
+        grunt.file.delete(blogJsonPre + fileName + '.json');   //删除对应的blog中的json元数据
+      }
+      else{
+        fileJson = grunt.file.readJSON(filePath);
+        articles.push({
+            title: fileJson.title,
+            name: fileName,
+            mtime: fileJson.modifyTime
         });
 
-      /*
-          需要重新生成静态页面的三种情况：
-            1. md文件被修改
-            2. md文件对应的html页面没生成（刚从git 上clone下来）
-            3. 模板或layout文件被修改
-      */
-      if (renderList[fileName] || (!fs.existsSync(htmlPath)) || (!update)){
-        var ht = {};
-        ht[htmlPath] = 'src/page/article.hbs';
-        handleConf[fileName] = {
-          files: ht,
-          options: {
-            partials: [
-              'src/template/*.hbs', 
-               mdPath,
-              'src/layout/article.html'
-            ],
-            modules: [
-              'src/helpers/helpers-*.js',
-              'handlebars-helper-moment'
-            ],
-            basePath: 'src/',
-            context: filePath
-          }          
+        /*
+            需要重新生成静态页面的三种情况：
+              1. md文件被修改
+              2. md文件对应的html页面没生成（刚从git 上clone下来）
+              3. 模板或layout文件被修改
+        */
+        if (renderList[fileName] || (!fs.existsSync(htmlPath)) || (!update)){
+          var ht = {};
+          ht[htmlPath] = 'src/page/article.hbs';
+          handleConf[fileName] = {
+            files: ht,
+            options: {
+              partials: [
+                'src/template/*.hbs', 
+                 mdPath,
+                'src/layout/article.html'
+              ],
+              modules: [
+                'src/helpers/helpers-*.js',
+                'handlebars-helper-moment'
+              ],
+              basePath: 'src/',
+              context: filePath
+            }          
+          }
         }
       }
+  
     });
 
     //更新index.json 文章名列表
-    if (update){ 
+    if (true){ 
       var indexJson = grunt.file.readJSON('src/data/index.json');
       indexJson.articles = articles;
+      indexJson.article = articles[0].name;
       grunt.file.write('src/data/index.json',JSON.stringify(indexJson));
       grunt.log.write('update article list :\n');
       grunt.log.ok(articles.map(function(v){return v.title;}).join('\n'))
