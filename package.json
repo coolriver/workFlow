@@ -4,7 +4,7 @@
   "description": "本地开发流程测试+github博客",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt compile"
   },
   "keywords": [
     "blog",
