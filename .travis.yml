@@ -7,3 +7,4 @@ before_install:
  - npm install -g bower
  - npm install
  - bower install
+ - gem install compass
