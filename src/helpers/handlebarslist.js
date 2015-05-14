@@ -9,17 +9,27 @@
 'use strict';
 
 //函数：更新md文件对应的元数据json文件
-function updateJson(name,md,json,time,grunt){
+function updateJson(name,md,json,time,ctime,grunt){
   var fs = require('fs'),
       jsonData = {},
       date,
-      title;
-      title = fs.readFileSync(md,'utf-8').split(/[\n\r]+/)[0].replace(/^#+/,'');
+      title,
+      title = fs.readFileSync(md,'utf-8').split(/[\n\r]+/)[0].replace(/^#+/,''),
       date = new Date(time);
+      
 
       jsonData.title = title;
       jsonData.article = name;
       jsonData.modifyTimeValue = time;
+      if (ctime.constructor === Number){   //传入的修改时间为数值，表示新增md文件
+        console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+        var cDate = new Date(ctime);
+        jsonData.creatTime = cDate.toString().replace(/GMT.*$/,'');
+      }
+      else{                               //传入的修改时间为字符串，表示已有md文件
+        jsonData.creatTime = ctime;
+      }
+      
       jsonData.modifyTime = date.toString().replace(/GMT.*$/,'');
 
       try{
@@ -85,7 +95,7 @@ module.exports = function(grunt) {
         update = true;
         renderList[fileName] = true;
         fileInfo = fs.statSync(mdPath);
-        updateJson(fileName,mdPath,filePath,fileInfo.mtime.valueOf(),grunt);
+        updateJson(fileName,mdPath,filePath,fileInfo.mtime.valueOf(),fileInfo.ctime.valueOf(),grunt);
       }
       else{
         fileJson = grunt.file.readJSON(filePath);
@@ -96,7 +106,7 @@ module.exports = function(grunt) {
             fileInfo.mtime.valueOf() > fileJson.modifyTimeValue){
           update = true;
           renderList[fileName] = true;
-          updateJson(fileName,mdPath,filePath,fileInfo.mtime.valueOf(),grunt);
+          updateJson(fileName,mdPath,filePath,fileInfo.mtime.valueOf(),fileJson.creatTime,grunt);
         }
       }
     });
@@ -121,7 +131,8 @@ module.exports = function(grunt) {
         articles.push({
             title: fileJson.title,
             name: fileName,
-            mtime: fileJson.modifyTime
+            mtime: fileJson.modifyTime,
+            ctime: fileJson.creatTime
         });
 
         /*

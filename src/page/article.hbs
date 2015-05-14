@@ -1,11 +1,8 @@
 {{#extend "article"}}
 
     {{#replace "body"}}
-      <ul>
-        {{#items}}
-          <li>{{.}}</li>
-        {{/items}}
-      </ul>
+
+      <strong>创建时间:{{creatTime}}</strong>
 
       {{md article }}
 
