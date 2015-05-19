@@ -92,6 +92,7 @@ module.exports = function(grunt) {
 
       //新增md文件
       if (!fs.existsSync(filePath)){
+        grunt.log.writeln("new md file : "+filePath);
         update = true;
         renderList[fileName] = true;
         fileInfo = fs.statSync(mdPath);
@@ -100,10 +101,14 @@ module.exports = function(grunt) {
       else{
         fileJson = grunt.file.readJSON(filePath);
         fileInfo = fs.statSync(mdPath);
-
+        //grunt.log.writeln("now creatTime:"+fileInfo.birthtime);
+        //grunt.log.writeln("now modifyTime:"+fileInfo.mtime);
+        //grunt.log.writeln("meta modifyTime:"+fileJson.modifyTime);
         //修改现有md文件
-        if (fileInfo.mtime.valueOf() > fileInfo.ctime.valueOf() &&
+        //birthtime表示创建时间，mtime表示上次修改时间
+        if (fileInfo.mtime.valueOf() > fileInfo.birthtime.valueOf() &&
             fileInfo.mtime.valueOf() > fileJson.modifyTimeValue){
+          //grunt.log.writeln("modify md "+fileName);
           update = true;
           renderList[fileName] = true;
           updateJson(fileName,mdPath,filePath,fileInfo.mtime.valueOf(),fileJson.creatTime,grunt);
@@ -172,7 +177,10 @@ module.exports = function(grunt) {
       indexJson.article = articles[0].name;
       grunt.file.write('src/data/index.json',JSON.stringify(indexJson));
       grunt.log.write('update article list :\n');
-      grunt.log.ok(articles.map(function(v){return v.title;}).join('\n'))
+      for (var key in handleConf){
+        grunt.log.ok(key);
+      }
+      //grunt.log.ok(articles.map(function(v){return v.title;}).join('\n'))
     }
     grunt.config('handlebarslayouts',handleConf);
   })

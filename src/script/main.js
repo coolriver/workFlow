@@ -12,6 +12,7 @@ $(document).ready(function() {
   		var list = data.articles,
   			namelist = [];
   		for (var i in list){
+        console.log(list[i].name)
   			namelist.push('<li><a href="/blog/article/'+list[i].name+'.html">');
   			namelist.push(list[i].title);
   			namelist.push('</a></li>');
